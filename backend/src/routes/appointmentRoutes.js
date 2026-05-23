@@ -2,7 +2,7 @@ const express = require("express");
 const { z } = require("zod");
 const { validate } = require("../middleware/validate");
 const { requireAuth, requireRole } = require("../middleware/auth");
-const { bookAppointmentController, checkInController } = require("../controllers/appointmentController");
+const { bookAppointmentController, checkInController, myAppointmentsController } = require("../controllers/appointmentController");
 const { USER_ROLES, PRIORITY_LEVEL } = require("../lib/constants");
 
 const router = express.Router();
@@ -32,7 +32,7 @@ router.post(
 router.post(
   "/check-in",
   requireAuth,
-  requireRole(USER_ROLES.RECEPTIONIST, USER_ROLES.ADMIN),
+  requireRole(USER_ROLES.RECEPTIONIST, USER_ROLES.ADMIN, USER_ROLES.PATIENT),
   validate(
     z.object({
       body: z.object({
@@ -44,5 +44,7 @@ router.post(
   ),
   checkInController
 );
+
+router.get("/mine", requireAuth, myAppointmentsController);
 
 module.exports = router;

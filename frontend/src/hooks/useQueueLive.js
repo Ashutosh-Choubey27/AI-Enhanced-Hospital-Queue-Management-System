@@ -4,6 +4,7 @@ import { getSocket } from "../lib/socket";
 
 export function useQueueLive({ doctorId, slotStartAt }) {
   const [queue, setQueue] = useState(null);
+  const [seq, setSeq] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +17,11 @@ export function useQueueLive({ doctorId, slotStartAt }) {
   useEffect(() => {
     let mounted = true;
     async function run() {
-      if (!key) return;
+      if (!key) {
+        setLoading(false);
+        setError(null);
+        return;
+      }
       setLoading(true);
       setError(null);
       try {
@@ -44,6 +49,7 @@ export function useQueueLive({ doctorId, slotStartAt }) {
       if (payload?.doctorId !== key.doctorId) return;
       if (payload?.slotStartAt !== key.slotStartAtIso) return;
       setQueue(payload.queue);
+      setSeq((s) => s + 1);
     };
 
     socket.on("queue:updated", onUpdated);
@@ -52,6 +58,6 @@ export function useQueueLive({ doctorId, slotStartAt }) {
     };
   }, [key]);
 
-  return { queue, setQueue, loading, error };
+  return { queue, setQueue, loading, error, seq };
 }
 

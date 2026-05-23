@@ -50,4 +50,14 @@ async function login({ email, password }) {
   return { user, token };
 }
 
-module.exports = { signup, login };
+async function getMe(userId) {
+  const user = await User.findById(userId);
+  if (!user) {
+    const err = new Error("User not found");
+    err.statusCode = 404;
+    throw err;
+  }
+  return user;
+}
+
+module.exports = { signup, login, getMe };

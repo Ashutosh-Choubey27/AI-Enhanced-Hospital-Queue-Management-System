@@ -4,7 +4,8 @@ const Queue = require("../models/Queue");
 const QueueLog = require("../models/QueueLog");
 const { APPOINTMENT_STATUS, QUEUE_ENTRY_STATUS } = require("../lib/constants");
 const { computePriorityScore } = require("../lib/priority");
-const { emitQueueUpdated } = require("../socket");
+const { emitQueueUpdated, emitActivityEvent } = require("../socket");
+const { formatQueue } = require("./queueService");
 
 async function bookAppointment({
   patientId,
@@ -57,7 +58,9 @@ async function checkInAppointment({ appointmentId, actorUserId }) {
   // Idempotent check-in: if already queued, return current state
   if (appt.queueId && appt.queueEntryId && appt.status === APPOINTMENT_STATUS.IN_QUEUE) {
     const existingQueue = await Queue.findById(appt.queueId);
-    return { appointment: appt, queue: existingQueue };
+    const formattedQueue = await formatQueue(existingQueue);
+    emitQueueUpdated({ doctorId: formattedQueue.doctorId, slotStartAt: formattedQueue.slotStartAt, queue: formattedQueue });
+    return { appointment: appt, queue: formattedQueue };
   }
 
   appt.status = APPOINTMENT_STATUS.CHECKED_IN;
@@ -122,8 +125,61 @@ async function checkInAppointment({ appointmentId, actorUserId }) {
     meta: { tokenNo: nextToken, position },
   });
 
-  emitQueueUpdated({ doctorId: queue.doctorId, slotStartAt: queue.slotStartAt, queue });
-  return { appointment: appt, queue };
+  const formattedQueue = await formatQueue(queue);
+  emitQueueUpdated({ doctorId: formattedQueue.doctorId, slotStartAt: formattedQueue.slotStartAt, queue: formattedQueue });
+
+  const queuedEntry = formattedQueue.entries.find((e) => String(e._id) === String(entryId)) || formattedQueue.entries[formattedQueue.entries.length - 1];
+  emitActivityEvent({
+    type: "PATIENT_CHECKED_IN",
+    payload: {
+      doctorId: String(formattedQueue.doctorId),
+      slotStartAt: String(formattedQueue.slotStartAt),
+      tokenNo: queuedEntry?.tokenNo,
+      queueEntryId: String(entryId),
+      appointmentId: String(appt._id),
+      patientName: queuedEntry?.patientName || "Patient",
+    },
+  });
+
+  if (queuedEntry?.priorityLevel === "EMERGENCY") {
+    emitActivityEvent({
+      type: "EMERGENCY_ADDED",
+      payload: {
+        doctorId: String(formattedQueue.doctorId),
+        slotStartAt: String(formattedQueue.slotStartAt),
+        tokenNo: queuedEntry?.tokenNo,
+        queueEntryId: String(entryId),
+        appointmentId: String(appt._id),
+        patientName: queuedEntry?.patientName || "Patient",
+      },
+    });
+  }
+
+  return { appointment: appt, queue: formattedQueue };
 }
 
-module.exports = { bookAppointment, checkInAppointment };
+async function listAppointmentsForUser({ userId, role }) {
+  const filter = role === "PATIENT" ? { patientId: userId } : {};
+  const appointments = await Appointment.find(filter)
+    .populate("doctorId", "name department specialization")
+    .sort({ slotStartAt: -1 })
+    .limit(500)
+    .lean();
+  return appointments.map((a) => ({
+    id: String(a._id),
+    doctorId: a.doctorId?._id ? String(a.doctorId._id) : String(a.doctorId),
+    doctorName: a.doctorId?.name || "Doctor",
+    department: a.doctorId?.department || "",
+    specialization: a.doctorId?.specialization || "",
+    slotStartAt: a.slotStartAt,
+    slotEndAt: a.slotEndAt,
+    status: a.status,
+    reason: a.reason || "",
+    queueId: a.queueId ? String(a.queueId) : null,
+    queueEntryId: a.queueEntryId ? String(a.queueEntryId) : null,
+    priorityLevel: a.priorityLevel,
+    priorityScore: a.priorityScore,
+  }));
+}
+
+module.exports = { bookAppointment, checkInAppointment, listAppointmentsForUser };

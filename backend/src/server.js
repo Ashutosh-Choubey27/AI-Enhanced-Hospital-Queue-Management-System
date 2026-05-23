@@ -20,6 +20,7 @@ async function main() {
   });
 
   io.on("connection", (socket) => {
+    socket.join("activity:global");
     socket.on("join", ({ doctorId, slotStartAt }) => {
       if (!doctorId || !slotStartAt) return;
       socket.join(`queue:${doctorId}:${slotStartAt}`);

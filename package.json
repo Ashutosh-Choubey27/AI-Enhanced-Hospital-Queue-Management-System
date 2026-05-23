@@ -4,10 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:ml": "ml-service\\venv_ml\\Scripts\\uvicorn app.main:app --app-dir ml-service --reload --port 8001",
+    "dev": "concurrently -n BACKEND,FRONTEND,ML -c blue,magenta,green \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:ml\"",
+    "seed": "npm run seed --prefix backend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }

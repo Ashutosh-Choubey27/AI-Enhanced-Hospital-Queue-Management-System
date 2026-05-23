@@ -11,6 +11,8 @@ const authRoutes = require("./routes/authRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const queueRoutes = require("./routes/queueRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const doctorsRoutes = require("./routes/doctorsRoutes");
+const predictRoutes = require("./routes/predictRoutes");
 
 function createApp() {
   const app = express();
@@ -36,6 +38,8 @@ function createApp() {
   app.get("/health", (req, res) => res.json({ ok: true }));
 
   app.use("/api/auth", authRoutes);
+  app.use("/api/doctors", doctorsRoutes);
+  app.use("/api/predict", predictRoutes);
   app.use("/api/appointments", appointmentRoutes);
   app.use("/api/queues", queueRoutes);
   app.use("/api/admin", adminRoutes);

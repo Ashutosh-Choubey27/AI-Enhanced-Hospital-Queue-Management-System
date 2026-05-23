@@ -1,28 +1,34 @@
-import { Bell, Search } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "../theme/ThemeContext";
+import { AppLogo } from "./brand/AppLogo";
+import { GlobalSearch } from "./layout/GlobalSearch";
+import { MobileNav } from "./layout/MobileNav";
+import { ProfileMenu } from "./layout/ProfileMenu";
+import { NotificationPanel } from "./notifications/NotificationPanel";
 
 export function Topbar() {
+  const { isDark, toggleTheme } = useTheme();
+
   return (
-    <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 lg:px-6">
-        <div className="flex-1">
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            <input className="input pl-9" placeholder="Search patients, doctors, tokens…" />
-          </div>
+    <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/75 shadow-sm shadow-slate-200/30 backdrop-blur-xl dark:border-slate-800/80 dark:bg-slate-950/75 dark:shadow-slate-950/40">
+      <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-3 lg:gap-4 lg:px-6">
+        <MobileNav />
+        <div className="shrink-0 lg:hidden">
+          <AppLogo size="sm" showText={false} />
         </div>
-        <button className="btn btn-ghost">
-          <Bell className="h-4 w-4" />
-          <span className="hidden sm:inline">Alerts</span>
+        <GlobalSearch />
+        <NotificationPanel />
+        <button
+          type="button"
+          className="btn btn-ghost shrink-0 transition-shadow hover:shadow-sm"
+          onClick={toggleTheme}
+          aria-label="Toggle dark mode"
+        >
+          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          <span className="hidden sm:inline">{isDark ? "Light" : "Dark"}</span>
         </button>
-        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2">
-          <div className="h-8 w-8 rounded-xl bg-slate-100" />
-          <div className="hidden sm:block leading-tight">
-            <div className="text-xs font-semibold text-slate-900">Ashutosh</div>
-            <div className="text-[11px] text-slate-500">Patient</div>
-          </div>
-        </div>
+        <ProfileMenu />
       </div>
     </header>
   );
 }
-

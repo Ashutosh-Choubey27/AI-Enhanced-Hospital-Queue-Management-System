@@ -1,4 +1,4 @@
-const { signup, login } = require("../services/authService");
+const { signup, login, getMe } = require("../services/authService");
 
 async function signupController(req, res, next) {
   try {
@@ -32,4 +32,16 @@ async function loginController(req, res, next) {
   }
 }
 
-module.exports = { signupController, loginController };
+async function meController(req, res, next) {
+  try {
+    const user = await getMe(req.auth.sub);
+    return res.json({
+      ok: true,
+      data: { id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role, isActive: user.isActive },
+    });
+  } catch (e) {
+    return next(e);
+  }
+}
+
+module.exports = { signupController, loginController, meController };

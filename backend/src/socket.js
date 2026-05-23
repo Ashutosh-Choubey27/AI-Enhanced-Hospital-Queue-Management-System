@@ -19,5 +19,14 @@ function emitQueueUpdated({ doctorId, slotStartAt, queue }) {
   });
 }
 
-module.exports = { initSocket, getIo, emitQueueUpdated };
+function emitActivityEvent({ type, payload }) {
+  if (!ioRef) return;
+  ioRef.to("activity:global").emit("activity:event", {
+    type,
+    payload,
+    createdAt: new Date().toISOString(),
+  });
+}
+
+module.exports = { initSocket, getIo, emitQueueUpdated, emitActivityEvent };
 

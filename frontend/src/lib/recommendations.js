@@ -25,14 +25,16 @@ export function inferDepartmentFromComplaint(complaint) {
   return null;
 }
 
-export function recommendDoctors({ doctors, complaint, preferredDept }) {
+export function recommendDoctors({ doctors, complaint, preferredDept, mlWaitById = {} }) {
   const inferredDept = preferredDept || inferDepartmentFromComplaint(complaint);
   const scored = doctors.map((d) => {
+    const mlWait = mlWaitById[d.id]?.wait_minutes;
+    const waitMins = typeof mlWait === "number" ? mlWait : d.predictedWaitMins || 0;
     let score = 0;
     if (inferredDept && d.department === inferredDept) score += 100;
     if (d.isEmergencyCapable) score += 10;
     // Lower wait is better; normalize into a bonus
-    score += Math.max(0, 60 - (d.predictedWaitMins || 0));
+    score += Math.max(0, 60 - waitMins);
     // Slightly favor higher rating
     score += Math.round((d.rating || 0) * 5);
     return { doctor: d, score, inferredDept };

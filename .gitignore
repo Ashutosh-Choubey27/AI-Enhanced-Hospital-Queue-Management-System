@@ -1,0 +1,155 @@
+# =============================================================================
+# AI-Enhanced Hospital Queue Management System — monorepo root .gitignore
+# frontend/ (Vite React) · backend/ (Node/Express) · ml-service/ (FastAPI)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Dependencies — Node.js (root, frontend, backend)
+# -----------------------------------------------------------------------------
+node_modules/
+**/node_modules/
+
+# -----------------------------------------------------------------------------
+# Environment & secrets (never commit — use *.example templates only)
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# -----------------------------------------------------------------------------
+# Python — ml-service virtual environments & bytecode
+# -----------------------------------------------------------------------------
+ml-service/.venv/
+ml-service/venv/
+ml-service/venv_ml/
+**/.venv/
+**/venv/
+**/venv_ml/
+**/env/
+**/ENV/
+
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.eggs/
+dist/*.egg-info
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*.manifest
+*.spec
+
+# -----------------------------------------------------------------------------
+# Build outputs
+# -----------------------------------------------------------------------------
+dist/
+**/dist/
+dist-ssr/
+build/
+**/build/
+*.tsbuildinfo
+
+# Vite
+frontend/.vite/
+
+# -----------------------------------------------------------------------------
+# Logs & runtime
+# -----------------------------------------------------------------------------
+logs/
+**/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -----------------------------------------------------------------------------
+# Testing & coverage
+# -----------------------------------------------------------------------------
+coverage/
+.nyc_output/
+*.lcov
+
+# -----------------------------------------------------------------------------
+# Package manager caches (optional local caches)
+# -----------------------------------------------------------------------------
+.npm/
+.yarn/
+.pnp.*
+.pnpm-store/
+
+# -----------------------------------------------------------------------------
+# OS generated files
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# -----------------------------------------------------------------------------
+# Editors & IDEs
+# -----------------------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# -----------------------------------------------------------------------------
+# Windows / Visual Studio artifacts
+# -----------------------------------------------------------------------------
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# -----------------------------------------------------------------------------
+# Local overrides & temp files
+# -----------------------------------------------------------------------------
+*.local
+.cache/
+**/.cache/
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+
+# -----------------------------------------------------------------------------
+# Deployment / hosting local artifacts (do not upload)
+# -----------------------------------------------------------------------------
+.vercel/
+.netlify/
+
+# -----------------------------------------------------------------------------
+# ML / data artifacts (regenerated locally; keep committed models out if added later)
+# -----------------------------------------------------------------------------
+ml-service/.ipynb_checkpoints/
+*.pkl
+*.joblib

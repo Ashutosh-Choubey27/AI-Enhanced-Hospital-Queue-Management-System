@@ -11,9 +11,8 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
       maxlength: 190,
-      index: true,
     },
-    phone: { type: String, trim: true, maxlength: 20, index: true },
+    phone: { type: String, trim: true, maxlength: 20 },
 
     role: { type: String, enum: Object.values(USER_ROLES), required: true },
 

@@ -1,8 +1,36 @@
 const Queue = require("../models/Queue");
 const QueueLog = require("../models/QueueLog");
 const Appointment = require("../models/Appointment");
+const User = require("../models/User");
 const { QUEUE_ENTRY_STATUS, APPOINTMENT_STATUS } = require("../lib/constants");
-const { emitQueueUpdated } = require("../socket");
+const { emitQueueUpdated, emitActivityEvent } = require("../socket");
+
+async function formatQueue(queue) {
+  const qObj = queue.toObject ? queue.toObject() : queue;
+  const patientIds = (qObj.entries || [])
+    .map((e) => e.patientId)
+    .filter(Boolean)
+    .map((id) => String(id));
+
+  const uniqueIds = [...new Set(patientIds)];
+  const users = uniqueIds.length
+    ? await User.find({ _id: { $in: uniqueIds } }).select("name").lean()
+    : [];
+  const nameById = {};
+  users.forEach((u) => {
+    nameById[String(u._id)] = u.name;
+  });
+
+  qObj.entries = (qObj.entries || []).map((e) => {
+    const pid = e.patientId ? String(e.patientId) : null;
+    return {
+      ...e,
+      patientName: pid ? nameById[pid] || "Patient" : "Patient",
+    };
+  });
+
+  return qObj;
+}
 
 function pickNextEntry(entries) {
   // Only WAITING entries are eligible for "next". Others are effectively skipped.
@@ -21,7 +49,7 @@ async function getQueue({ doctorId, slotStartAt }) {
     err.statusCode = 404;
     throw err;
   }
-  return queue;
+  return formatQueue(queue);
 }
 
 async function callNext({ doctorId, slotStartAt, actorUserId }) {
@@ -61,8 +89,23 @@ async function callNext({ doctorId, slotStartAt, actorUserId }) {
     meta: { tokenNo: nextEntry.tokenNo },
   });
 
-  emitQueueUpdated({ doctorId: queue.doctorId, slotStartAt: queue.slotStartAt, queue });
-  return { queue, entry: nextEntry };
+  const formattedQueue = await formatQueue(queue);
+  emitQueueUpdated({ doctorId: formattedQueue.doctorId, slotStartAt: formattedQueue.slotStartAt, queue: formattedQueue });
+
+  const entryForPayload = formattedQueue.entries.find((e) => String(e._id) === String(nextEntry._id));
+  emitActivityEvent({
+    type: "TOKEN_CALLED",
+    payload: {
+      doctorId: String(formattedQueue.doctorId),
+      slotStartAt: String(formattedQueue.slotStartAt),
+      tokenNo: nextEntry.tokenNo,
+      appointmentId: String(nextEntry.appointmentId),
+      queueEntryId: String(nextEntry._id),
+      patientName: entryForPayload?.patientName || "Patient",
+    },
+  });
+
+  return { queue: formattedQueue, entry: entryForPayload || nextEntry };
 }
 
 async function markNoShow({ doctorId, slotStartAt, queueEntryId, actorUserId }) {
@@ -103,8 +146,13 @@ async function markNoShow({ doctorId, slotStartAt, queueEntryId, actorUserId }) 
     meta: { tokenNo: entry.tokenNo },
   });
 
-  emitQueueUpdated({ doctorId: queue.doctorId, slotStartAt: queue.slotStartAt, queue });
-  return { queue, entry };
+  const formattedQueue = await formatQueue(queue);
+  emitQueueUpdated({
+    doctorId: formattedQueue.doctorId,
+    slotStartAt: formattedQueue.slotStartAt,
+    queue: formattedQueue,
+  });
+  return { queue: formattedQueue, entry };
 }
 
 async function skipEntry({ doctorId, slotStartAt, queueEntryId, actorUserId, reason }) {
@@ -140,8 +188,28 @@ async function skipEntry({ doctorId, slotStartAt, queueEntryId, actorUserId, rea
     meta: { tokenNo: entry.tokenNo },
   });
 
-  emitQueueUpdated({ doctorId: queue.doctorId, slotStartAt: queue.slotStartAt, queue });
-  return { queue, entry };
+  const formattedQueue = await formatQueue(queue);
+  emitQueueUpdated({
+    doctorId: formattedQueue.doctorId,
+    slotStartAt: formattedQueue.slotStartAt,
+    queue: formattedQueue,
+  });
+
+  const entryForPayload = formattedQueue.entries.find((e) => String(e._id) === String(entry._id));
+  emitActivityEvent({
+    type: "QUEUE_SKIPPED",
+    payload: {
+      doctorId: String(formattedQueue.doctorId),
+      slotStartAt: String(formattedQueue.slotStartAt),
+      tokenNo: entry.tokenNo,
+      queueEntryId: String(entry._id),
+      appointmentId: String(entry.appointmentId),
+      patientName: entryForPayload?.patientName || "Patient",
+      reason: reason || null,
+    },
+  });
+
+  return { queue: formattedQueue, entry: entryForPayload || entry };
 }
 
-module.exports = { getQueue, callNext, markNoShow, skipEntry };
+module.exports = { getQueue, callNext, markNoShow, skipEntry, formatQueue };

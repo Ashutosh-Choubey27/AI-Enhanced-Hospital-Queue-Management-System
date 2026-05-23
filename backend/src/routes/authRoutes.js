@@ -1,7 +1,8 @@
 const express = require("express");
 const { z } = require("zod");
 const { validate } = require("../middleware/validate");
-const { signupController, loginController } = require("../controllers/authController");
+const { requireAuth } = require("../middleware/auth");
+const { signupController, loginController, meController } = require("../controllers/authController");
 const { USER_ROLES } = require("../lib/constants");
 
 const router = express.Router();
@@ -38,5 +39,7 @@ router.post(
   ),
   loginController
 );
+
+router.get("/me", requireAuth, meController);
 
 module.exports = router;
