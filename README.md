@@ -27,6 +27,13 @@ This starts:
 - frontend: `http://localhost:5173`
 - ML service: `http://localhost:8001`
 
+## Viva preparation (printable)
+
+- Source: [`docs/VIVA_PREP.md`](docs/VIVA_PREP.md)
+- Generate printable outputs: `python scripts/generate_viva_prep.py`
+  - **PDF:** open `docs/VIVA_PREP.html` in a browser → **Print → Save as PDF**
+  - **Word/PDF:** open `docs/VIVA_PREP.docx` in Microsoft Word → Save as PDF
+
 ## Demo accounts after seed
 
 - Patient: `patient1@hospital-seed.demo` / `Password@123`

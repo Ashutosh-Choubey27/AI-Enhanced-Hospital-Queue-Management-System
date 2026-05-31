@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viva Prep — AI-Enhanced Hospital Queue Management System</title>
+  <style>
+@page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+* { box-sizing: border-box; }
+body {
+  font-family: "Segoe UI", Calibri, Arial, sans-serif;
+  font-size: 11pt;
+  line-height: 1.45;
+  color: #1a1a1a;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 12mm 0;
+}
+.cover {
+  text-align: center;
+  padding: 24mm 8mm 16mm;
+  page-break-after: always;
+  border-bottom: 3px solid #0d47a1;
+}
+.cover h1 {
+  font-size: 22pt;
+  color: #0d47a1;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.cover .subtitle { font-size: 13pt; color: #37474f; margin: 0 0 20px; }
+.cover .meta { font-size: 10pt; color: #546e7a; }
+.cover .stack { margin-top: 16px; font-size: 9.5pt; line-height: 1.6; }
+h2 {
+  font-size: 14pt;
+  color: #0d47a1;
+  margin: 22px 0 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #b0bec5;
+  page-break-after: avoid;
+}
+h3 {
+  font-size: 12pt;
+  color: #1565c0;
+  margin: 16px 0 8px;
+  page-break-after: avoid;
+}
+h4 {
+  font-size: 11pt;
+  color: #263238;
+  margin: 14px 0 6px;
+  page-break-after: avoid;
+}
+p { margin: 0 0 8px; }
+ul, ol { margin: 0 0 10px; padding-left: 22px; }
+li { margin-bottom: 4px; }
+hr { border: none; border-top: 1px solid #cfd8dc; margin: 16px 0; }
+blockquote {
+  margin: 10px 0 14px;
+  padding: 10px 14px;
+  background: #e3f2fd;
+  border-left: 4px solid #1976d2;
+  font-size: 10.5pt;
+  page-break-inside: avoid;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 14px;
+  font-size: 10pt;
+  page-break-inside: avoid;
+}
+th, td {
+  border: 1px solid #90a4ae;
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+th { background: #eceff1; font-weight: 600; }
+.qa-block {
+  margin-bottom: 12px;
+  page-break-inside: avoid;
+}
+.toc { font-size: 10.5pt; }
+.toc ol { padding-left: 20px; }
+.toc a { color: #1565c0; text-decoration: none; }
+.footer-note {
+  margin-top: 24px;
+  padding-top: 10px;
+  border-top: 1px solid #cfd8dc;
+  font-size: 9pt;
+  color: #607d8b;
+  font-style: italic;
+}
+@media print {
+  body { padding: 0; }
+  a { color: inherit; text-decoration: none; }
+  .no-print { display: none !important; }
+  h2, h3, h4 { page-break-after: avoid; }
+  .qa-block, blockquote, table { page-break-inside: avoid; }
+}
+.print-hint {
+  background: #fff8e1;
+  border: 1px solid #ffc107;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-size: 10pt;
+}
+</style>
+</head>
+<body>
+  <p class="print-hint no-print"><strong>Print to PDF:</strong> Press <kbd>Ctrl+P</kbd> (or <kbd>Cmd+P</kbd> on Mac) → choose <em>Save as PDF</em> → enable <em>Background graphics</em> for best results.</p>
+
+  <section class="cover">
+    <h1>AI-Enhanced Hospital Queue Management System</h1>
+    <p class="subtitle">Viva &amp; Interview Preparation Guide</p>
+    <p class="meta">38 Questions · Top 10 Dangerous Questions · 2-Minute Pitch · Architecture · Common Mistakes</p>
+    <p class="stack">
+      <strong>Stack:</strong> React (Vite) · Node.js + Express · MongoDB Atlas · Socket.io · FastAPI ML · Tailwind · JWT<br/>
+      <strong>Deploy:</strong> Vercel · Render · MongoDB Atlas
+    </p>
+  </section>
+
+  <nav class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li>Part 1 — Viva Questions &amp; Answers (38)</li>
+      <li>Part 2 — Top 10 Most Dangerous Viva Questions</li>
+      <li>Part 3 — 2-Minute Project Explanation</li>
+      <li>Part 4 — Architecture Diagram Explanation</li>
+      <li>Part 5 — Common Mistakes During Viva</li>
+      <li>Quick Revision Checklist &amp; Demo Accounts</li>
+    </ol>
+  </nav>
+
+  <hr/>
+
+  <h2 id='part-1-viva-questions-answers'>Part 1: Viva Questions &amp; Answers</h2>
+<h3>A. Basic Overview &amp; Motivation</h3>
+<div class="qa-block"><h4>Q1. What is your project about?</h4><p>It is a <strong>web-based hospital queue and appointment system</strong> where patients book slots, check in, and track tokens in real time. Staff and doctors manage queues per doctor and time slot. An <strong>ML microservice</strong> predicts wait time and crowd level to help patients choose doctors. The goal is to reduce crowding, confusion, and manual queue handling.</p>
+</div>
+<div class="qa-block"><h4>Q2. What problem does it solve?</h4><p>In many hospitals, queues are managed manually—patients don’t know their position, staff re-enter data, and wait times are guessed. Our system gives <strong>structured appointments</strong>, <strong>token-based queues</strong>, <strong>priority handling</strong> (emergency, senior, etc.), <strong>live updates</strong> without refreshing the page, and <strong>data-driven wait estimates</strong> instead of guesswork.</p>
+</div>
+<div class="qa-block"><h4>Q3. Who are the users and what can each role do?</h4><p>We have four roles: <strong>PATIENT</strong> (book, check in, view queue), <strong>DOCTOR</strong> (call next, mark no-show, manage their slot queue), <strong>RECEPTIONIST</strong> (operational support on appointments/queues), and <strong>ADMIN</strong> (oversight, doctors, system data). Access is enforced on the backend using JWT and role middleware—not only by hiding buttons in the UI.</p>
+</div>
+<div class="qa-block"><h4>Q4. What technologies did you use and why?</h4>
+<table>
+<tr><th>Technology</th><th>Why we chose it</th></tr>
+<tr><td>React + Vite</td><td>Fast SPA development, component-based UI</td></tr>
+<tr><td>Node.js + Express</td><td>REST APIs, auth, business logic, Socket.io on same server</td></tr>
+<tr><td>MongoDB Atlas</td><td>Flexible schema for appointments, embedded queue entries, logs</td></tr>
+<tr><td>Socket.io</td><td>Real-time queue and activity feed</td></tr>
+<tr><td>FastAPI (Python)</td><td>Separate ML service with clear <code>/predict</code> endpoints</td></tr>
+<tr><td>Tailwind CSS</td><td>Consistent, responsive UI quickly</td></tr>
+</table>
+<p>The ML service stays <strong>independent</strong> so we can retrain or scale it without redeploying the main API.</p>
+</div>
+<div class="qa-block"><h4>Q5. Is this a web app, mobile app, or desktop app?</h4><p>It is a <strong>responsive web application</strong> (browser-based). It works on desktop and mobile browsers. We did not build a native Android/iOS app; the frontend is React served via Vite (development) or static hosting on Vercel (production).</p>
+</div>
+<div class="qa-block"><h4>Q6. What makes your project “AI-enhanced”?</h4><p>The <strong>AI part is the ML microservice</strong>, not a chatbot. It predicts <strong>estimated wait minutes</strong> and <strong>crowd level</strong> from features like queue length, arrivals in 30 minutes, service rate, emergency share, time-of-day, and department. The backend proxies these calls; the frontend uses predictions when recommending doctors during booking.</p>
+</div>
+<hr/>
+<h3>B. Architecture &amp; System Design</h3>
+<div class="qa-block"><h4>Q7. Explain your high-level architecture.</h4><p>Three main parts:</p>
+</div>
+<ol>
+<li><strong>Frontend</strong> (React) — UI, REST calls, Socket.io client</li>
+<li><strong>Backend</strong> (Express + MongoDB) — auth, appointments, queues, admin, ML proxy</li>
+<li><strong>ML service</strong> (FastAPI) — wait-time and crowd prediction</li>
+</ol>
+<p>MongoDB Atlas stores users, doctors, appointments, queues, and audit logs. Socket.io runs on the <strong>same Node HTTP server</strong> as Express. In production: frontend on <strong>Vercel</strong>, API (+ sockets) and ML on <strong>Render</strong>, database on <strong>Atlas</strong>.</p>
+</div>
+<div class="qa-block"><h4>Q8. Why a separate ML microservice instead of putting ML inside Node?</h4>
+<ul>
+<li><strong>Different runtime</strong> — Python fits NumPy/ML libraries better</li>
+<li><strong>Independent deploy and scale</strong> — retrain/restart ML without redeploying the whole API</li>
+<li><strong>Clear contract</strong> — JSON in/out on <code>/predict/wait-time</code> and <code>/predict/crowd</code></li>
+<li><strong>Failure isolation</strong> — if ML is down, core queue/booking still works; predictions degrade gracefully</li>
+</ul>
+</div><div class="qa-block"><h4>Q9. How is the project folder structured?</h4>
+<ul>
+<li><code>frontend/</code> — React pages, hooks (<code>useQueueLive</code>), API client, Socket client, Tailwind</li>
+<li><code>backend/</code> — Express app, routes, controllers, services, Mongoose models, <code>socket.js</code></li>
+<li><code>ml-service/</code> — FastAPI <code>main.py</code>, model, schemas, synthetic training data</li>
+</ul>
+<p>Root <code>package.json</code> runs all three with <code>concurrently</code> for local development.</p>
+</div>
+<div class="qa-block"><h4>Q10. What is the difference between monolith and microservices in your project?</h4><p>The <strong>backend is a modular monolith</strong> (one Express app, layered routes → controllers → services). Only the <strong>ML part is a microservice</strong>. That is a practical choice: one codebase maintains queue logic, while ML stays isolated.</p>
+</div>
+<div class="qa-block"><h4>Q11. What design pattern did you follow in the backend?</h4><p><strong>Layered architecture</strong>: routes → controllers → services → models. Business rules (e.g. <code>callNext</code>, check-in) live in <strong>services</strong>; HTTP and validation stay in routes/controllers. Socket emits happen <strong>after</strong> DB updates in services so data stays consistent.</p>
+</div>
+<div class="qa-block"><h4>Q12. How do you ensure consistency between database and real-time UI?</h4><p>Every queue change <strong>saves to MongoDB first</strong>, then calls <code>emitQueueUpdated</code> with the <strong>formatted queue</strong> from the database. Clients also <strong>fetch REST on load</strong>, then subscribe to Socket.io. So even if a socket message is missed, refresh or re-join still shows correct state.</p>
+</div>
+<hr/>
+<h3>C. Frontend (React + Vite)</h3>
+<div class="qa-block"><h4>Q13. Why React and Vite instead of plain HTML or Create React App?</h4><p>React fits <strong>many interactive screens</strong> (dashboard, booking, queue visualization) with reusable components. <strong>Vite</strong> gives a faster dev server and builds than older CRA tooling. Hooks like <code>useQueueLive</code> encapsulate fetch + socket logic cleanly.</p>
+</div>
+<div class="qa-block"><h4>Q14. How does the frontend talk to the backend?</h4><p>Through <code>apiFetch</code> against <code>VITE_API_BASE</code> (e.g. <code>http://localhost:5000</code>). The auth token is sent as <code>Authorization: Bearer &lt;token&gt;</code> on protected routes. ML predictions go through <strong><code>/api/predict/*</code></strong> on the backend, not directly to port 8001 in production—avoiding extra CORS issues with the ML service.</p>
+</div>
+<div class="qa-block"><h4>Q15. How do real-time queue updates work on the frontend?</h4><p>The <code>useQueueLive</code> hook:</p>
+</div>
+<ol>
+<li>Loads queue via <code>GET /api/queues?doctorId=&amp;slotStartAt=</code></li>
+<li>Connects Socket.io to the API URL</li>
+<li>Emits <code>join</code> with <code>doctorId</code> and <code>slotStartAt</code></li>
+<li>Listens for <code>queue:updated</code> and updates local state</li>
+</ol>
+<p>Room names match the backend: <code>queue:{doctorId}:{isoSlotTime}</code>.</p>
+</div>
+<div class="qa-block"><h4>Q16. What is Tailwind CSS and why use it?</h4><p>Tailwind is <strong>utility-first CSS</strong>—classes like <code>flex</code>, <code>p-4</code>, <code>text-sm</code> in JSX. It speeds up consistent layout and styling without large custom CSS files. Good for a demo-ready UI in limited time.</p>
+</div>
+<div class="qa-block"><h4>Q17. How does doctor recommendation work during booking?</h4><p>When listing doctors, the app calls <strong>wait-time prediction</strong> per doctor (queue length, arrivals, service rate, etc.), stores results in state, and runs a <strong>recommendation helper</strong> that ranks doctors using complaint text, preferred department, and ML wait bands. If ML is offline, booking still works without predictions.</p>
+</div>
+<hr/>
+<h3>D. Backend (Node.js + Express)</h3>
+<div class="qa-block"><h4>Q18. What are your main API route groups?</h4>
+<table>
+<tr><th>Route prefix</th><th>Purpose</th></tr>
+<tr><td><code>/api/auth</code></td><td>Login, register</td></tr>
+<tr><td><code>/api/doctors</code></td><td>Doctor listing and details</td></tr>
+<tr><td><code>/api/appointments</code></td><td>Book, check-in, list</td></tr>
+<tr><td><code>/api/queues</code></td><td>Get queue, call next, no-show</td></tr>
+<tr><td><code>/api/predict</code></td><td>Proxy to ML (wait-time, crowd)</td></tr>
+<tr><td><code>/api/admin</code></td><td>Admin operations</td></tr>
+<tr><td><code>/health</code></td><td>Health check for deployment</td></tr>
+</table>
+</div><div class="qa-block"><h4>Q19. Explain the appointment → queue flow.</h4>
+<ol>
+<li>Patient <strong>books</strong> appointment → status <code>BOOKED</code></li>
+<li><strong>Check-in</strong> creates or appends to the <strong>doctor + slot</strong> queue document, assigns <strong>token number</strong> and <strong>position</strong>, sets status <code>IN_QUEUE</code></li>
+<li>Doctor <strong>calls next</strong> → highest priority among <code>WAITING</code> entries, then FIFO by position</li>
+<li>Events logged in <strong>QueueLog</strong>; Socket emits <code>queue:updated</code> and activity events</li>
+</ol>
+</div><div class="qa-block"><h4>Q20. How does priority queue work?</h4><p>Each entry has <code>priorityLevel</code> (EMERGENCY, VIP, SENIOR, PREGNANT, NORMAL) and a numeric <strong>priorityScore</strong> (base score + optional triage). <code>pickNextEntry</code> sorts <strong>WAITING</strong> entries by <code>priorityScore</code> descending, then <code>position</code> ascending. Emergency cases surface first but remain auditable in logs.</p>
+</div>
+<div class="qa-block"><h4>Q21. What middleware do you use and why?</h4>
+<ul>
+<li><strong>helmet</strong> — security headers</li>
+<li><strong>cors</strong> — allow frontend origin with credentials</li>
+<li><strong>express-rate-limit</strong> — basic abuse protection</li>
+<li><strong>morgan</strong> — request logging in development</li>
+<li><strong>validate (Zod)</strong> — request body validation</li>
+<li><strong>requireAuth / requireRole</strong> — JWT and role-based access</li>
+<li><strong>errorHandler</strong> — consistent error JSON</li>
+</ul>
+</div><div class="qa-block"><h4>Q22. Why embed queue entries inside the Queue document?</h4><p>For <strong>fast reads</strong> of the full live queue in one query—important for the doctor dashboard and socket payloads. <strong>QueueLog</strong> keeps an <strong>audit trail</strong> of check-in, call next, no-show, etc. Trade-off: very large queues mean a bigger document; for a hospital slot window this is acceptable.</p>
+</div>
+<hr/>
+<h3>E. MongoDB</h3>
+<div class="qa-block"><h4>Q23. Why MongoDB instead of MySQL?</h4><p>Hospital data has <strong>nested structures</strong> (queue with many entries), varied metadata, and evolving fields. MongoDB’s document model maps naturally to <strong>Appointment</strong>, <strong>Queue</strong>, and <strong>QueueLog</strong>. Atlas provides <strong>managed cloud DB</strong> with backups and connection strings for Render.</p>
+</div>
+<div class="qa-block"><h4>Q24. What collections/models do you have?</h4><p><strong>User</strong>, <strong>Doctor</strong>, <strong>Appointment</strong>, <strong>Queue</strong> (with embedded entries), <strong>QueueLog</strong>. Indexes include unique <code>(doctorId, slotStartAt)</code> per queue and compound indexes for “who is next” queries on entry status and priority.</p>
+</div>
+<div class="qa-block"><h4>Q25. What is MongoDB Atlas?</h4><p>Atlas is <strong>MongoDB’s cloud hosting</strong>. We connect via <code>MONGO_URI</code> from the backend on Render. It separates database hosting from application servers and supports IP allowlists and monitoring.</p>
+</div>
+<div class="qa-block"><h4>Q26. How do you handle relationships without SQL joins?</h4><p>We use <strong>ObjectId references</strong> (<code>patientId</code>, <code>doctorId</code>, <code>appointmentId</code>) and manual lookups—e.g. <code>formatQueue</code> loads patient names from <code>User</code> for display. For heavy reporting you could use aggregation pipelines; for the live queue we optimize the read path.</p>
+</div>
+<hr/>
+<h3>F. Socket.io &amp; Real-Time</h3>
+<div class="qa-block"><h4>Q27. What is Socket.io and why not plain WebSockets?</h4><p>Socket.io adds <strong>rooms</strong>, <strong>reconnection</strong>, and <strong>fallback transports</strong> on top of WebSockets. We use <strong>rooms per queue</strong> (<code>queue:doctorId:slot</code>) and a global <strong>activity</strong> room so only relevant clients get updates.</p>
+</div>
+<div class="qa-block"><h4>Q28. What events do you emit and listen to?</h4>
+<ul>
+<li><strong>Client → server:</strong> <code>join</code> with <code>{ doctorId, slotStartAt }</code></li>
+<li><strong>Server → client:</strong> <code>queue:updated</code> with full queue payload</li>
+<li><strong>Server → activity subscribers:</strong> <code>activity:event</code> (check-in, token called, emergency, etc.)</li>
+</ul>
+</div><div class="qa-block"><h4>Q29. Why join rooms instead of broadcasting to everyone?</h4><p>Broadcasting would send <strong>every hospital queue update to every user</strong>—wasteful and a privacy issue. Rooms scope updates to patients and staff watching <strong>that doctor’s slot</strong>.</p>
+</div>
+<div class="qa-block"><h4>Q30. Can Socket.io work on Vercel?</h4><p><strong>Vercel hosts the static frontend</strong>, not a long-lived Socket.io server. Our <strong>Express + Socket.io server runs on Render</strong> (persistent Node process). The frontend on Vercel sets <code>VITE_API_BASE</code> to the Render API URL.</p>
+</div>
+<hr/>
+<h3>G. ML Integration</h3>
+<div class="qa-block"><h4>Q31. What does the ML service predict?</h4>
+<ul>
+<li><strong>Wait time</strong> (minutes + band: low/medium/high) with explanation and top factors</li>
+<li><strong>Crowd level</strong> via <code>/predict/crowd</code></li>
+</ul>
+<p>Input features include <code>queue_len</code>, <code>arrivals_30m</code>, <code>service_rate</code>, <code>emergency_share</code>, timestamp (hour/day encoding), and department one-hot encoding.</p>
+</div>
+<div class="qa-block"><h4>Q32. What algorithm did you use?</h4><p>A <strong>linear regression model</strong> (ridge-regularized, trained on synthetic patterned data in <code>ml-service</code>). It is interpretable—we expose <strong>feature contributions</strong> for demonstration. A production hospital would retrain on real historical data.</p>
+</div>
+<div class="qa-block"><h4>Q33. How does the backend call ML?</h4><p><code>mlClientService.js</code> POSTs JSON to <code>ML_SERVICE_URL</code> (e.g. <code>http://127.0.0.1:8001/predict/wait-time</code>). The predict controller validates input with Zod and returns the ML response to the frontend. Errors map to 502/400 so the UI can fail gracefully.</p>
+</div>
+<div class="qa-block"><h4>Q34. Is the ML prediction 100% accurate?</h4><p>No—and we should not claim that. It is an <strong>estimate</strong> from engineered features. Synthetic training means it demonstrates the <strong>pipeline</strong>, not clinical certification. Real deployment needs real data, validation, and possibly stronger models.</p>
+</div>
+<hr/>
+<h3>H. Deployment, Environment, CORS, Authentication</h3>
+<div class="qa-block"><h4>Q35. Explain your deployment architecture.</h4>
+<table>
+<tr><th>Component</th><th>Platform</th><th>Notes</th></tr>
+<tr><td>Frontend</td><td>Vercel</td><td>Build from <code>frontend/</code>, env <code>VITE_API_BASE</code></td></tr>
+<tr><td>Backend + Socket.io</td><td>Render</td><td><code>PORT</code>, <code>MONGO_URI</code>, <code>CLIENT_ORIGIN</code>, <code>ML_SERVICE_URL</code></td></tr>
+<tr><td>ML service</td><td>Render (second service)</td><td>Python, internal port 8001</td></tr>
+<tr><td>Database</td><td>MongoDB Atlas</td><td>Connection string in backend env</td></tr>
+</table>
+<p><code>CLIENT_ORIGIN</code> must match the Vercel URL exactly for CORS.</p>
+</div>
+<div class="qa-block"><h4>Q36. What environment variables are important?</h4><p><strong>Backend:</strong> <code>PORT</code>, <code>MONGO_URI</code>, <code>JWT_SECRET</code>, <code>CLIENT_ORIGIN</code>, <code>ML_SERVICE_URL</code></p>
+</div>
+<p><strong>Frontend:</strong> <code>VITE_API_BASE</code> (public API URL including Render hostname)</p>
+</div>
+<p>Never commit <code>.env</code> to Git; use platform secret managers in production.</p>
+</div>
+<div class="qa-block"><h4>Q37. What is CORS and how did you configure it?</h4><p>CORS (Cross-Origin Resource Sharing) lets the <strong>browser</strong> call APIs on a <strong>different origin</strong> (e.g. Vercel frontend → Render API). Express uses <code>cors({ origin: env.clientOrigin, credentials: true })</code>. Socket.io sets the same <code>origin</code> in its CORS config. A wrong origin causes browser-blocked requests.</p>
+</div>
+<div class="qa-block"><h4>Q38. How does authentication work (JWT)?</h4><p>On login, the server verifies the password with <strong>bcrypt</strong>, issues a <strong>JWT</strong> signed with <code>JWT_SECRET</code> containing user id and role. Protected routes use <code>requireAuth</code>; role-specific routes use <code>requireRole('DOCTOR')</code>, etc. The client sends <code>Authorization: Bearer &lt;token&gt;</code>. For production hardening we would add refresh tokens, HTTPS-only cookies, and secret rotation.</p>
+</div>
+<hr/>
+<h3>I. Bonus: “Why did you choose…?” &amp; Problems Faced</h3>
+<p><strong>Why Express over Django for the main API?</strong></p>
+<p>Same ecosystem familiarity, rich middleware, and <strong>Socket.io integrates natively</strong> with Node’s HTTP server.</p>
+</div>
+<p><strong>Why doctor + slot based queues?</strong></p>
+<p>Hospitals schedule by <strong>appointment slot</strong>, not one global line. One queue document per <code>(doctorId, slotStartAt)</code> matches real workflow.</p>
+</div>
+<p><strong>Problems we faced (honest answers):</strong></p>
+</div>
+<ul>
+<li>Socket rooms needed <strong>exact ISO string</strong> matching between client and server</li>
+<li>ML service offline during demo → <strong>proxy through backend</strong> and catch errors in UI</li>
+<li>CORS misconfiguration when moving from localhost to Vercel/Render</li>
+<li>Embedded queue document size vs. query speed trade-off</li>
+<li>Payment is <strong>simulated</strong> (UPI-style UI), not a real payment gateway</li>
+</ul>
+<hr/>
+<h2 id='part-2-top-10-most-dangerous-viva-questions'>Part 2: Top 10 Most Dangerous Viva Questions</h2>
+<h3>1. “Show me the data flow when a doctor clicks Call Next.”</h3>
+<p>Doctor UI → <code>POST</code> queue API (with JWT) → <code>queueService.callNext</code> loads queue from MongoDB → picks best WAITING entry by priority → updates entry status to CALLED, updates appointment → writes <strong>QueueLog</strong> → <code>formatQueue</code> → <strong><code>emitQueueUpdated</code></strong> to room <code>queue:{doctorId}:{slot}</code> → connected clients in <code>useQueueLive</code> update state. <strong>Database first, then socket.</strong></p>
+</div>
+<h3>2. “What if Socket.io disconnects—will the queue be wrong?”</h3>
+<p>No. <strong>MongoDB is the source of truth.</strong> Sockets only push updates. On reconnect, the client re-joins the room and can refetch <code>GET /api/queues</code>. Worst case: brief UI lag until reconnect or refresh.</p>
+</div>
+<h3>3. “Why not call the ML service directly from React?”</h3>
+<p>That exposes the internal ML URL, adds CORS complexity, and bypasses central validation. The <strong>backend proxy</strong> gives one public API, consistent errors, and hides infrastructure.</p>
+</div>
+<h3>4. “Your ML uses synthetic data—is this real AI?”</h3>
+<p>It is a <strong>real ML pipeline</strong> (features, training, inference, explainability) with <strong>demo-grade data</strong>. Production would retrain on hospital history. We are proving <strong>system design</strong>; accuracy is a data problem.</p>
+</div>
+<h3>5. “How do you prevent a patient from calling API as a doctor?”</h3>
+<p><strong>JWT + <code>requireRole</code> on server routes.</strong> UI hiding is not security. Sensitive actions check role from a <strong>verified token</strong>, not from a client-sent role field.</p>
+</div>
+<h3>6. “What about race conditions when two staff call next at once?”</h3>
+<p>Honest answer: last write can win without transactions. <strong>Improvement:</strong> MongoDB atomic <code>findOneAndUpdate</code> with version checks or conditional updates on queue state. We prioritized clarity for academic scope.</p>
+</div>
+<h3>7. “Is payment real?”</h3>
+<p>No. It is a <strong>simulated UPI-style flow</strong> on the frontend for UX demo—transaction IDs, masked contact info, UPI deep link format. No Razorpay/Stripe or PCI integration.</p>
+</div>
+<h3>8. “Why MongoDB embedded entries instead of normalizing entries?”</h3>
+<p><strong>Read performance</strong> for the live board; one read for the full queue. Logs are normalized in <strong>QueueLog</strong>. Very large queues could paginate entries or split collections.</p>
+</div>
+<h3>9. “How scalable is this for 10,000 concurrent users?”</h3>
+<p>Current design suits <strong>department/slot-level</strong> load. Scale path: horizontal API instances, <strong>Redis adapter for Socket.io</strong>, read replicas, ML autoscaling, CDN for frontend.</p>
+</div>
+<h3>10. “What are the limitations of your project?”</h3>
+<ul>
+<li>ML not trained on real hospital data</li>
+<li>Simulated payments</li>
+<li>No native mobile app</li>
+<li>Limited transactional concurrency handling</li>
+<li>JWT without full enterprise refresh/rotation hardening</li>
+</ul>
+<p>State <strong>one improvement per limitation</strong>—examiners respect self-awareness.</p>
+</div>
+<hr/>
+<h2 id='part-3-how-to-explain-the-full-project-in-2-minutes'>Part 3: How to Explain the Full Project in 2 Minutes</h2>
+<blockquote>“Good morning. Our project is an <strong>AI-Enhanced Hospital Queue Management System</strong>—a full-stack web app that digitizes appointments and live queues.</blockquote>
+<p>&gt;</p>
+<blockquote><strong>Patients</strong> book doctor slots, get a token when they check in, and see queue position in <strong>real time</strong> without refreshing. <strong>Doctors</strong> manage a queue per time slot—call next, handle no-shows—and the system supports <strong>priority</strong> for emergency and special cases.</blockquote>
+<p>&gt;</p>
+<blockquote>Technically we use <strong>React with Vite</strong> on the frontend, <strong>Node.js and Express</strong> on the backend, and <strong>MongoDB Atlas</strong> in the cloud. <strong>Socket.io</strong> pushes queue updates to connected clients in scoped rooms per doctor and slot.</blockquote>
+<p>&gt;</p>
+<blockquote>The AI part is a separate <strong>FastAPI microservice</strong> that predicts <strong>wait time and crowd level</strong> from queue features. The Express API proxies those predictions so the booking screen can recommend shorter waits.</blockquote>
+<p>&gt;</p>
+<blockquote>We also have <strong>role-based access</strong>—patient, doctor, receptionist, admin—using <strong>JWT</strong>, admin tools, an activity notification feed, and a <strong>simulated payment</strong> UI for billing demo.</blockquote>
+<p>&gt;</p>
+<blockquote>For deployment, the frontend goes to <strong>Vercel</strong>, API and ML to <strong>Render</strong>, and the database to <strong>Atlas</strong>, with environment variables linking URLs and secrets.</blockquote>
+<p>&gt;</p>
+<blockquote>In short: it reduces manual queue chaos by combining <strong>structured data, real-time updates, and ML-assisted decisions</strong> in one integrated system. Thank you.”</blockquote>
+<hr/>
+<h2 id='part-4-how-to-explain-the-architecture-diagram'>Part 4: How to Explain the Architecture Diagram</h2>
+<p>Walk <strong>left to right</strong>, then data flow:</p>
+</div>
+<ol>
+<li><strong>User browser</strong> — React SPA (Vercel)</li>
+<li><strong>Arrow (HTTPS REST + WebSocket)</strong> → <strong>Express API + Socket.io</strong> (Render)</li>
+<li><strong>Arrow (MongoDB driver)</strong> → <strong>MongoDB Atlas</strong></li>
+<li><strong>Arrow (HTTP)</strong> → <strong>FastAPI ML</strong> (Render)</li>
+<li>Label env vars: <code>VITE_API_BASE</code>, <code>CLIENT_ORIGIN</code>, <code>MONGO_URI</code>, <code>ML_SERVICE_URL</code>, <code>JWT_SECRET</code></li>
+</ol>
+<p><strong>Key sentence:</strong> “The browser never talks to MongoDB directly. All business rules sit in Express. Socket.io shares the same server as REST. ML is optional at runtime—if it fails, queues still work. CORS ties the Vercel origin to the API.”</p>
+</div>
+<p><strong>Diagram to draw on board:</strong></p>
+</div>
+<p><code>`</code></p>
+<p>[Patient / Doctor Browser]</p>
+<table>
+<tr><th>REST + JWT</th></tr>
+<tr><td>Socket.io (rooms)</td></tr>
+</table>
+<p>v</p>
+<p>[Express API + Socket.io] -----&gt; [MongoDB Atlas]</p>
+<table>
+<tr><th></th></tr>
+<tr><td>HTTP POST /predict/*</td></tr>
+</table>
+<p>v</p>
+<p>[FastAPI ML Service]</p>
+<p><code>`</code></p>
+</div>
+<hr/>
+<h2 id='part-5-common-mistakes-students-make-during-project-viva'>Part 5: Common Mistakes Students Make During Project Viva</h2>
+<table>
+<tr><th>Mistake</th><th>What to do instead</th></tr>
+<tr><td>Only describing UI, not backend/DB</td><td>Explain <strong>one full flow</strong> end-to-end (book → check-in → call next → socket)</td></tr>
+<tr><td>Saying “we used AI” without pipeline detail</td><td>Say <strong>features → model → endpoint → proxy → UI</strong></td></tr>
+<tr><td>Claiming 100% accuracy or “replaces doctors”</td><td>Call it <strong>decision support</strong>, demo/synthetic data</td></tr>
+<tr><td>Not knowing own API routes or collections</td><td>Memorize <strong>5 routes + 5 models</strong></td></tr>
+<tr><td>Ignoring Socket.io vs REST</td><td>REST = request/response; sockets = <strong>server push</strong></td></tr>
+<tr><td>Demo fails, no env knowledge</td><td>Know <strong>Vercel + Render + Atlas</strong> env vars and CORS</td></tr>
+<tr><td>Reading slides word-for-word</td><td>Use the <strong>2-minute story</strong>, then answer questions</td></tr>
+<tr><td>No limitations section</td><td>List <strong>3 limitations + 3 improvements</strong></td></tr>
+<tr><td>Claiming JWT is “planned” if already built</td><td>Demo login; mention <strong>bcrypt + middleware</strong></td></tr>
+<tr><td>Arguing with examiner</td><td>Acknowledge gap: “We’d add transactions/Redis in production”</td></tr>
+</table>
+<hr/>
+<h2 id='quick-revision-checklist'>Quick Revision Checklist</h2>
+<p class="checklist">☐ Draw architecture in 60 seconds</p>
+<p class="checklist">☐ Speak 2-minute project pitch aloud once</p>
+<p class="checklist">☐ Trace: book → check-in → call next → socket event names</p>
+<p class="checklist">☐ List env vars and what breaks if each is wrong</p>
+<p class="checklist">☐ Explain priority queue sorting in one sentence</p>
+<p class="checklist">☐ Explain ML features and why separate service</p>
+<p class="checklist">☐ Prepare 3 limitations and 3 future enhancements</p>
+<p class="checklist">☐ Run <code>npm run dev</code> and log in as patient + doctor</p>
+<hr/>
+<h2 id='demo-accounts-after-npm-run-seed'>Demo Accounts (after <code>npm run seed</code>)</h2>
+<table>
+<tr><th>Role</th><th>Email</th><th>Password</th></tr>
+<tr><td>Patient</td><td>patient1@hospital-seed.demo</td><td>Password@123</td></tr>
+<tr><td>Doctor</td><td>doctor1@hospital-seed.demo</td><td>Password@123</td></tr>
+<tr><td>Admin</td><td>admin@hospital-seed.demo</td><td>Password@123</td></tr>
+<tr><td>Receptionist</td><td>reception@hospital-seed.demo</td><td>Password@123</td></tr>
+</table>
+<hr/>
+<p>*Generated for project viva preparation. Open <code>docs/VIVA_PREP.html</code> in a browser and use <strong>Print → Save as PDF</strong> for a printable copy.*</p>
+
+  <p class="footer-note">Project viva preparation document. Regenerate with: python scripts/generate_viva_prep.py</p>
+</body>
+</html>

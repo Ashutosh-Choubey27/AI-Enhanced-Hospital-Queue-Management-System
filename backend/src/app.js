@@ -21,10 +21,12 @@ function createApp() {
   app.use(
     cors({
      origin: function (origin, callback) {
+      console.log("Request Origin:", origin);
+      console.log("Allowed Origins:", env.clientOrigins);
   if (!origin || env.clientOrigins.includes(origin)) {
     callback(null, true);
   } else {
-    callback(new Error("Not allowed by CORS"));
+    callback(null, false);
   }
 },
       credentials: true,
