@@ -91,7 +91,7 @@ The system enables patients to book appointments, receive queue tokens, monitor 
 ![Payment](screenshots/payment3.png)
 
 ### Profile
-![Profile](screenshots/ProfilePage.png)
+![Profile](screenshots/profilePage.png)
 
 
 ## 🔌 API Modules
