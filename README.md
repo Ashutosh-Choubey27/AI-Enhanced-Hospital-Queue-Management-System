@@ -72,23 +72,29 @@ The system enables patients to book appointments, receive queue tokens, monitor 
 
 ## 📸 Screenshots
 
+
 ### Login
 ![Login](screenshots/login.png)
+
 
 ### Dashboard
 ![Dashboard](screenshots/dashboard.png)
 
+
 ### Appointment
 ![Appointment](screenshots/appointment.png)
+
 
 ### Queue Management
 ![Queue](screenshots/queue1.png)
 ![Queue](screenshots/queue2.png)
 
+
 ### Payment
 ![Payment](screenshots/payment1.png)
 ![Payment](screenshots/payment2.png)
 ![Payment](screenshots/payment3.png)
+
 
 ### Profile
 ![Profile](screenshots/profilePage.png)
@@ -97,7 +103,7 @@ The system enables patients to book appointments, receive queue tokens, monitor 
 ## 🔌 API Modules
 
 ___________________________________________________
-|     Module      |          Purpose              |
+|  Module         |      Purpose                  |
 |-----------------|-------------------------------|
 | Auth API        | Login, Signup, JWT            |
 | Doctor API      | Doctor directory              | 
@@ -105,7 +111,6 @@ ___________________________________________________
 | Queue API       | Queue operations              | 
 | Admin API       | User approvals                |
 | Prediction API  | Wait-time & Crowd forecasting |
-|_________________|_______________________________|
 
 
 ## 📂 Project Structure
